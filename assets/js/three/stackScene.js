@@ -183,7 +183,7 @@ const DRAW = {
   domain: function (ctx, w, h, ink) {
     ctx.fillStyle = ink;
     ctx.font = '500 84px "Geist Mono"';
-    ctx.fillText("ksaddab@gmail.com", 90, 190);
+    ctx.fillText("Saddab Khan", 90, 190);
     ctx.font = '400 38px "Geist Mono"';
     const records = [
       "A      @    76.76.21.21",
