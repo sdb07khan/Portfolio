@@ -1,0 +1,11 @@
+{
+  "name": "Saddab Khan — Front-end Developer",
+  "short_name": "Saddab Khan",
+  "icons": [
+    { "src": "assets/images/meta/icon-192.png", "sizes": "192x192", "type": "image/png" },
+    { "src": "assets/images/meta/icon-512.png", "sizes": "512x512", "type": "image/png" }
+  ],
+  "theme_color": "#ece8e1",
+  "background_color": "#ece8e1",
+  "display": "standalone"
+}

@@ -1,0 +1,98 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <!-- Source for assets/images/meta/og-image.png (1200×630).
+         Re-render: see README → "Favicon + share image". -->
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Geist:wght@500&family=Geist+Mono:wght@400;600&family=Instrument+Serif:ital@1&display=block"
+    />
+    <style>
+      * { margin: 0; padding: 0; box-sizing: border-box; }
+      html, body { width: 1200px; height: 630px; overflow: hidden; }
+      body {
+        position: relative;
+        padding: 64px 72px;
+        background: #ece8e1;
+        color: #1c1c1a;
+        font-family: "Geist", sans-serif;
+      }
+      .meta {
+        display: flex;
+        justify-content: space-between;
+        font-family: "Geist Mono", monospace;
+        font-size: 17px;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        color: #7c776d;
+      }
+      .meta b { color: #1c1c1a; font-weight: 600; }
+      .status { display: flex; align-items: center; gap: 10px; }
+      .status::before {
+        content: "";
+        width: 11px;
+        height: 11px;
+        border-radius: 50%;
+        background: #3fa35f;
+        box-shadow: 0 0 0 5px rgba(63, 163, 95, 0.18);
+      }
+      h1 {
+        margin-top: 70px;
+        font-size: 80px;
+        font-weight: 500;
+        line-height: 0.98;
+        letter-spacing: -0.05em;
+      }
+      h1 em {
+        font-family: "Instrument Serif", serif;
+        font-weight: 400;
+        color: #b4654a;
+        letter-spacing: -0.02em;
+      }
+      .keys {
+        position: absolute;
+        right: 72px;
+        bottom: 64px;
+        display: flex;
+        gap: 14px;
+      }
+      .key {
+        width: 86px;
+        height: 86px;
+        border-radius: 18px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-family: "Geist Mono", monospace;
+        font-weight: 600;
+        font-size: 34px;
+        color: #f1ede6;
+        background: #b4654a;
+        box-shadow: inset 0 -10px 0 rgba(0, 0, 0, 0.16), 0 14px 24px rgba(28, 28, 26, 0.14);
+      }
+      .key--paper { background: #e9e4da; color: #1c1c1a; border: 1px solid rgba(28, 28, 26, 0.08); }
+      .foot {
+        position: absolute;
+        left: 72px;
+        bottom: 64px;
+        font-family: "Geist Mono", monospace;
+        font-size: 17px;
+        letter-spacing: 0.06em;
+        text-transform: uppercase;
+        color: #7c776d;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="meta">
+      <span><b>Saddab Khan</b> — Front-end developer</span>
+      <span class="status">Available for work</span>
+    </div>
+    <h1>I build websites<br />from the first <em>keystroke</em><br />to the live server.</h1>
+    <p class="foot">HTML · Sass · JS · React · Three.js · WordPress · Webflow</p>
+    <div class="keys">
+      <span class="key">H</span><span class="key">I</span><span class="key">R</span><span class="key">E</span>
+    </div>
+  </body>
+</html>

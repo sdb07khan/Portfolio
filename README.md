@@ -37,9 +37,18 @@ Add `{ name: "Vue", group: "build" }` to `skills` in `data.js`
 `COMMANDS` in `main.js`. Hidden: typing `hire` (the clay keys) scrolls to
 contact and makes the keyboard wave.
 
+## Favicon + share image
+Sources live in `design/` (`favicon.html`, `og.html`); outputs in
+`assets/images/meta/`. To re-render after a text change:
+
+```bash
+"/Applications/Google Chrome.app/Contents/MacOS/Google Chrome" --headless=new --hide-scrollbars --window-size=1200,630 --virtual-time-budget=3000 --screenshot="$PWD/assets/images/meta/og-image.png" "file://$PWD/design/og.html"
+```
+
 ## Still placeholder
 - Email `hello@yourname.dev`, social links (`#`)
 - `assets/documents/resume.pdf` (not included yet)
 - Project images 01–05 and projects three–five
 - Asar project year/description
+- Absolute `og:image` URL + `og:url` once the domain is known
 - Domain shown on the stack's DNS slab (`yourname.dev`, in `stackScene.js`)

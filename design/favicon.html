@@ -1,0 +1,28 @@
+<!doctype html>
+<html>
+  <head>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geist+Mono:wght@600&display=block" />
+    <style>
+      html, body { margin: 0; background: transparent; }
+      body { width: 100vw; height: 100vh; }
+      svg { display: block; width: 100vw; height: 100vh; }
+    </style>
+  </head>
+  <body>
+    <!-- Same art as assets/images/meta/favicon.svg, rendered with the real font -->
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+      <rect x="2" y="4" width="60" height="58" rx="14" fill="#8f4c36"/>
+      <rect x="2" y="2" width="60" height="54" rx="14" fill="#b4654a"/>
+      <rect x="9" y="7" width="46" height="42" rx="10" fill="#c0735a"/>
+      <text x="32" y="40" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-weight="600" font-size="30" fill="#f1ede6">S</text>
+    </svg>
+    <script>
+      // #solid → opaque paper background with padding (apple-touch-icon;
+      // iOS fills transparent icons with black)
+      if (location.hash === "#solid") {
+        document.body.style.background = "#ece8e1";
+        document.querySelector("svg").style.cssText = "width:76vw;height:76vh;margin:12vh 12vw;";
+      }
+    </script>
+  </body>
+</html>

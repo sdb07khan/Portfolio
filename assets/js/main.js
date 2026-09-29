@@ -243,6 +243,7 @@ document.addEventListener("DOMContentLoaded", function () {
     menuOpen = open;
     menuToggle.setAttribute("aria-expanded", String(open));
     menuToggle.textContent = open ? "Close" : "Menu";
+    header.classList.toggle("is-menuOpen", open);
     if (open) {
       mobileMenu.hidden = false;
       requestAnimationFrame(function () {
@@ -280,8 +281,20 @@ document.addEventListener("DOMContentLoaded", function () {
 
   function onScroll(y) {
     header.classList.toggle("is-hidden", y > lastScroll && y > 240 && !menuOpen);
+    header.classList.toggle("is-scrolled", y > 40);
     lastScroll = y;
   }
+
+  // Liquid glass: SVG refraction only where backdrop-filter: url() is
+  // actually rendered (Chromium); the sheen follows the pointer.
+  if (navigator.userAgentData && navigator.userAgentData.brands.some(function (b) { return /Chromium/.test(b.brand); })) {
+    document.documentElement.classList.add("has-liquid");
+  }
+  const headerGlass = document.getElementById("headerGlass");
+  header.addEventListener("pointermove", function (event) {
+    const rect = headerGlass.getBoundingClientRect();
+    headerGlass.style.setProperty("--glass-x", ((event.clientX - rect.left) / rect.width) * 100 + "%");
+  });
   if (lenis) {
     lenis.on("scroll", function (event) {
       onScroll(event.scroll);
@@ -655,6 +668,31 @@ document.addEventListener("DOMContentLoaded", function () {
       }
     });
   }
+
+  // Header turns light while it's over a dark section. Created after
+  // the stack pin, so the stack is measured by its pin-spacer (which
+  // includes the pinned scroll distance).
+  // Light if ANY dark section is under it — recomputed from all of
+  // them on every toggle, so a long jump (nav link, back to top) that
+  // skips past a section can't leave the class stuck on.
+  const darkZones = [];
+  function updateHeaderTone() {
+    header.classList.toggle("is-light", darkZones.some(function (zone) {
+      return zone.isActive;
+    }));
+  }
+  document.querySelectorAll(".stackSection, .contactSection").forEach(function (section) {
+    const parent = section.parentElement;
+    darkZones.push(ScrollTrigger.create({
+      trigger: parent.classList.contains("pin-spacer") ? parent : section,
+      start: "top 4%",
+      end: "bottom 4%",
+      // Measured after every pin (incl. the work gallery further down)
+      refreshPriority: -1,
+      onToggle: updateHeaderTone,
+      onRefresh: updateHeaderTone
+    }));
+  });
 
   // Work: horizontal gallery on desktop, stacked cards below 992px
   const media = gsap.matchMedia();

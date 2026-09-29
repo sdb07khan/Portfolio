@@ -10,16 +10,44 @@
     />
     <meta name="theme-color" content="#ece8e1" />
 
+    <!-- Icons -->
+    <link rel="icon" href="assets/images/meta/favicon.ico" sizes="48x48" />
+    <link rel="icon" href="assets/images/meta/favicon.svg" type="image/svg+xml" />
+    <link rel="apple-touch-icon" href="assets/images/meta/apple-touch-icon.png" />
+    <link rel="manifest" href="site.webmanifest" />
+
+    <!-- Social share (Open Graph + X/Twitter). Once the site has a domain,
+         make og:image / twitter:image absolute (https://yourdomain/…) and
+         add og:url — most platforms ignore relative image paths. -->
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Saddab Khan" />
+    <meta property="og:title" content="Saddab Khan — Front-end Developer" />
+    <meta
+      property="og:description"
+      content="I build websites from the first keystroke to the live server — front end, WordPress and Webflow, hosting, DNS and performance."
+    />
+    <meta property="og:image" content="assets/images/meta/og-image.png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="Saddab Khan — I build websites from the first keystroke to the live server." />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Saddab Khan — Front-end Developer" />
+    <meta
+      name="twitter:description"
+      content="I build websites from the first keystroke to the live server."
+    />
+    <meta name="twitter:image" content="assets/images/meta/og-image.png" />
+
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
       rel="stylesheet"
       href="https://fonts.googleapis.com/css2?family=Geist:wght@300..700&family=Geist+Mono:wght@400;500&family=Instrument+Serif:ital@0;1&display=swap"
     />
-    <link rel="stylesheet" href="assets/css/main.css?v=9" />
+    <link rel="stylesheet" href="assets/css/main.css?v=15" />
 
     <!-- Site content + shared state: must run before everything below -->
-    <script src="assets/js/data.js?v=9"></script>
+    <script src="assets/js/data.js?v=15"></script>
 
     <script
       src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.13.0/gsap.min.js"
@@ -37,7 +65,7 @@
       src="https://cdnjs.cloudflare.com/ajax/libs/matter-js/0.20.0/matter.min.js"
       defer
     ></script>
-    <script src="assets/js/main.js?v=9" defer></script>
+    <script src="assets/js/main.js?v=15" defer></script>
 
     <!-- Three.js scenes are ES modules (Three no longer ships a UMD build) -->
     <script type="importmap">
@@ -48,13 +76,13 @@
         }
       }
     </script>
-    <script type="module" src="assets/js/three/heroScene.js?v=9" async></script>
+    <script type="module" src="assets/js/three/heroScene.js?v=15" async></script>
     <script
       type="module"
-      src="assets/js/three/stackScene.js?v=9"
+      src="assets/js/three/stackScene.js?v=15"
       async
     ></script>
-    <script type="module" src="assets/js/three/floaters.js?v=9" async></script>
+    <script type="module" src="assets/js/three/floaters.js?v=15" async></script>
   </head>
   <body>
     <!-- Preloader ------------------------------------------------------ -->
@@ -76,6 +104,16 @@
       </p>
     </div>
 
+    <!-- Liquid-glass refraction for the header pill (Chromium; see
+         _header.scss). Must not be display:none or the filter won't apply. -->
+    <svg class="svgDefs" aria-hidden="true" focusable="false">
+      <filter id="liquidGlass" x="0" y="0" width="100%" height="100%" color-interpolation-filters="sRGB">
+        <feTurbulence type="fractalNoise" baseFrequency="0.006 0.018" numOctaves="2" seed="4" result="noise" />
+        <feGaussianBlur in="noise" stdDeviation="2.5" result="flow" />
+        <feDisplacementMap in="SourceGraphic" in2="flow" scale="36" xChannelSelector="R" yChannelSelector="G" />
+      </filter>
+    </svg>
+
     <div class="cursor" id="cursor" aria-hidden="true">
       <span class="cursor__label"></span>
     </div>
@@ -88,6 +126,7 @@
     <!-- Header --------------------------------------------------------- -->
     <header class="siteHeader" id="siteHeader">
       <div class="section-wrapper siteHeader__inner">
+        <span class="siteHeader__glass" id="headerGlass" aria-hidden="true"></span>
         <a href="#top" class="siteHeader__logo">
           Saddab Khan<span class="siteHeader__logoRole"
             >Front-end developer</span
@@ -101,7 +140,7 @@
           <a href="#contact" class="siteNav__item">Contact</a>
         </nav>
         <div class="siteHeader__actions">
-          <span class="siteHeader__status">Available for work</span>
+          <span class="siteHeader__status"><span class="siteHeader__statusDot" aria-hidden="true"></span>Available for work</span>
           <button
             type="button"
             class="siteHeader__menuToggle"
