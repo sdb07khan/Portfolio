@@ -21,7 +21,7 @@ import {
   createRenderer,
   createEnvironment,
   watchVisibility,
-  smoothstep
+  smoothstep,
 } from "./shared.js";
 
 const site = window.PORTFOLIO;
@@ -52,13 +52,25 @@ const DRAW = {
     ctx.strokeStyle = ink;
     ctx.fillStyle = ink;
     ctx.lineWidth = 5;
-    const nodes = [[200, 460], [440, 240], [680, 420], [860, 200]];
+    const nodes = [
+      [200, 460],
+      [440, 240],
+      [680, 420],
+      [860, 200],
+    ];
     ctx.beginPath();
     ctx.moveTo(nodes[0][0], nodes[0][1]);
     for (let i = 1; i < nodes.length; i++) {
       const prev = nodes[i - 1];
       const node = nodes[i];
-      ctx.bezierCurveTo(prev[0] + 120, prev[1], node[0] - 120, node[1], node[0], node[1]);
+      ctx.bezierCurveTo(
+        prev[0] + 120,
+        prev[1],
+        node[0] - 120,
+        node[1],
+        node[0],
+        node[1],
+      );
     }
     ctx.stroke();
     nodes.forEach(function (node) {
@@ -81,7 +93,13 @@ const DRAW = {
     ctx.fillText("onClick()", 90, 130);
   },
   style: function (ctx, w, h, ink) {
-    const swatches = [PALETTE.ink, PALETTE.clay, PALETTE.sage, PALETTE.dusk, PALETTE.paper];
+    const swatches = [
+      PALETTE.ink,
+      PALETTE.clay,
+      PALETTE.sage,
+      PALETTE.dusk,
+      PALETTE.paper,
+    ];
     swatches.forEach(function (color, i) {
       ctx.fillStyle = color;
       roundRect(ctx, 90 + i * 124, 380, 100, 180, 20);
@@ -165,9 +183,14 @@ const DRAW = {
   domain: function (ctx, w, h, ink) {
     ctx.fillStyle = ink;
     ctx.font = '500 84px "Geist Mono"';
-    ctx.fillText("yourname.dev", 90, 190);
+    ctx.fillText("ksaddab@gmail.com", 90, 190);
     ctx.font = '400 38px "Geist Mono"';
-    const records = ["A      @    76.76.21.21", "CNAME  www  yourname.dev", "MX     @    mail.host", "TXT    @    v=spf1 …"];
+    const records = [
+      "A      @    76.76.21.21",
+      "CNAME  www  ksaddab@gmail.com",
+      "MX     @    mail.host",
+      "TXT    @    v=spf1 …",
+    ];
     records.forEach(function (record, i) {
       ctx.globalAlpha = 0.75;
       ctx.fillText(record, 90, 300 + i * 70);
@@ -181,7 +204,7 @@ const DRAW = {
     ctx.stroke();
     roundRect(ctx, 840, 120, 100, 80, 12);
     ctx.fill();
-  }
+  },
 };
 
 function makeTopTexture(layer, width, depth) {
@@ -191,7 +214,8 @@ function makeTopTexture(layer, width, depth) {
   const ctx = canvas.getContext("2d");
   // Light slabs get dark drawings and vice versa
   const lightSlabs = ["style", "structure"];
-  const ink = lightSlabs.indexOf(layer.kind) !== -1 ? PALETTE.inkText : PALETTE.paperText;
+  const ink =
+    lightSlabs.indexOf(layer.kind) !== -1 ? PALETTE.inkText : PALETTE.paperText;
   ctx.globalAlpha = 1;
   (DRAW[layer.kind] || function () {})(ctx, canvas.width, canvas.height, ink);
   const texture = new THREE.CanvasTexture(canvas);
@@ -219,8 +243,17 @@ function init(canvas) {
   scene.add(rim);
 
   const SLAB = { width: 6.2, height: 0.34, depth: 4 };
-  const geometry = new RoundedBoxGeometry(SLAB.width, SLAB.height, SLAB.depth, 4, 0.1);
-  const topGeometry = new THREE.PlaneGeometry(SLAB.width * 0.96, SLAB.depth * 0.96);
+  const geometry = new RoundedBoxGeometry(
+    SLAB.width,
+    SLAB.height,
+    SLAB.depth,
+    4,
+    0.1,
+  );
+  const topGeometry = new THREE.PlaneGeometry(
+    SLAB.width * 0.96,
+    SLAB.depth * 0.96,
+  );
 
   const rig = new THREE.Group();
   scene.add(rig);
@@ -233,7 +266,7 @@ function init(canvas) {
       color: baseColor.clone(),
       roughness: 0.5,
       clearcoat: 0.4,
-      clearcoatRoughness: 0.5
+      clearcoatRoughness: 0.5,
     });
     group.add(new THREE.Mesh(geometry, material));
 
@@ -241,7 +274,7 @@ function init(canvas) {
       map: makeTopTexture(layer, SLAB.width, SLAB.depth),
       transparent: true,
       roughness: 0.6,
-      depthWrite: false
+      depthWrite: false,
     });
     const top = new THREE.Mesh(topGeometry, topMaterial);
     top.rotation.x = -Math.PI / 2;
@@ -255,7 +288,7 @@ function init(canvas) {
       topMaterial: topMaterial,
       baseColor: baseColor,
       offset: new THREE.Vector3(),
-      dim: 0
+      dim: 0,
     };
   });
 
@@ -272,9 +305,12 @@ function init(canvas) {
 
     const tanHalf = Math.tan(THREE.MathUtils.degToRad(camera.fov / 2));
     // Fit the fully exploded stack's height, and its diagonal width
-    const explodedHeight = layers.length * (SLAB.height + (narrow ? 0.9 : 1.15)) + 1.6;
+    const explodedHeight =
+      layers.length * (SLAB.height + (narrow ? 0.9 : 1.15)) + 1.6;
     const fitHeight = explodedHeight / ((narrow ? 0.42 : 0.8) * 2 * tanHalf);
-    const fitWidth = (SLAB.width * 1.25) / ((narrow ? 0.9 : 0.5) * 2 * tanHalf * camera.aspect);
+    const fitWidth =
+      (SLAB.width * 1.25) /
+      ((narrow ? 0.9 : 0.5) * 2 * tanHalf * camera.aspect);
     const distance = Math.max(fitHeight, fitWidth);
 
     camera.position.set(0, distance * 0.36, distance);
@@ -285,9 +321,20 @@ function init(canvas) {
       const canvasTop = canvas.getBoundingClientRect().top;
       const head = document.querySelector(".stackSection__head");
       const bottom = document.querySelector(".stackSection__bottom");
-      const bandTop = head ? head.getBoundingClientRect().bottom - canvasTop : height * 0.2;
-      const bandBottom = bottom ? bottom.getBoundingClientRect().top - canvasTop : height * 0.6;
-      camera.setViewOffset(width, height, 0, height / 2 - (bandTop + bandBottom) / 2, width, height);
+      const bandTop = head
+        ? head.getBoundingClientRect().bottom - canvasTop
+        : height * 0.2;
+      const bandBottom = bottom
+        ? bottom.getBoundingClientRect().top - canvasTop
+        : height * 0.6;
+      camera.setViewOffset(
+        width,
+        height,
+        0,
+        height / 2 - (bandTop + bandBottom) / 2,
+        width,
+        height,
+      );
     } else {
       camera.setViewOffset(width, height, -width * 0.2, 0, width, height);
     }
@@ -338,15 +385,20 @@ function init(canvas) {
     progress += (state.stackProgress - progress) * 0.08;
 
     // Separate between 2–14% of the pin, close again after 90%
-    const explode = smoothstep(0.02, 0.14, progress) * (1 - smoothstep(0.9, 0.99, progress));
+    const explode =
+      smoothstep(0.02, 0.14, progress) * (1 - smoothstep(0.9, 0.99, progress));
     const gap = SLAB.height + 0.06 + explode * (narrow ? 0.9 : 1.15);
-    const activeIndex = state.stackStep >= 1 && state.stackStep <= layers.length ? state.stackStep - 1 : -1;
+    const activeIndex =
+      state.stackStep >= 1 && state.stackStep <= layers.length
+        ? state.stackStep - 1
+        : -1;
 
     if (!drag.active) {
       spin += spinVelocity;
       spinVelocity *= 0.94;
     }
-    rig.rotation.y = -0.7 + progress * Math.PI * 1.15 + spin + Math.sin(now * 0.4) * 0.04;
+    rig.rotation.y =
+      -0.7 + progress * Math.PI * 1.15 + spin + Math.sin(now * 0.4) * 0.04;
     rig.rotation.x = 0.12 + Math.sin(now * 0.3) * 0.02;
     rig.position.y = Math.sin(now * 0.7) * 0.08;
 
@@ -364,7 +416,8 @@ function init(canvas) {
       slab.offset.z += (forward.z * out - slab.offset.z) * 0.08;
       slab.group.position.x = slab.offset.x;
       slab.group.position.z = slab.offset.z;
-      slab.group.position.y += (targetY + forward.y * out - slab.group.position.y) * 0.1;
+      slab.group.position.y +=
+        (targetY + forward.y * out - slab.group.position.y) * 0.1;
 
       // Dim the slabs that aren't being talked about
       const targetDim = activeIndex !== -1 && !isActive ? 0.55 : 0;
