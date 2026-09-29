@@ -1,0 +1,91 @@
+// ============================================================
+// Design tokens — CSS custom properties (no Sass $variables).
+//
+// A sober paper-and-ink palette with three muted accents (clay,
+// sage, dusk). The same hex values are mirrored in
+// assets/js/three/shared.js (PALETTE) for the 3D keycaps and slabs —
+// change both together.
+// ============================================================
+
+:root {
+  // ---- Colors ----
+  --color-paper: #ece8e1; // page background
+  --color-paper-dark: #e2ddd3; // raised panels on paper
+  --color-ink: #1c1c1a; // text + dark sections
+  --color-ink-soft: #2a2a27;
+  --color-stone: #7c776d; // muted text on paper
+  --color-stone-light: #aaa497; // muted text on ink
+  --color-clay: #b4654a; // primary accent
+  --color-sage: #7b8a6d;
+  --color-dusk: #5d7086;
+  --color-sand: #d5c3a3;
+  --color-line: rgba(28, 28, 26, 0.14);
+  --color-line-light: rgba(236, 232, 225, 0.16);
+
+  // ---- Typography ----
+  // Geist: UI + headings. Instrument Serif italic: the <em> accent
+  // voice inside headings. Geist Mono: labels, terminal, meta.
+  --font-sans: "Geist", "Helvetica Neue", Arial, sans-serif;
+  --font-serif: "Instrument Serif", Georgia, serif;
+  --font-mono: "Geist Mono", "SFMono-Regular", Menlo, monospace;
+
+  --font-hero: 8.8rem;
+  --font-96: 9.6rem;
+  --font-72: 7.2rem;
+  --font-56: 5.6rem;
+  --font-40: 4rem;
+  --font-32: 3.2rem;
+  --font-24: 2.4rem;
+  --font-20: 2rem;
+  --font-18: 1.8rem;
+  --font-16: 1.6rem;
+  --font-14: 1.4rem;
+  --font-12: 1.2rem;
+
+  // ---- Layout + motion ----
+  --header-height: 8rem;
+  --gutter: 5rem;
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+
+  @media only screen and (max-width: 1200px) {
+    --font-hero: 7.4rem;
+    --font-96: 8rem;
+    --font-72: 6rem;
+    --font-56: 4.8rem;
+  }
+
+  @media only screen and (max-width: 991px) {
+    --font-hero: 6.4rem;
+    --font-96: 7rem;
+    --font-72: 5.4rem;
+    --font-56: 4.2rem;
+    --font-40: 3.4rem;
+    --gutter: 3.2rem;
+  }
+
+  @media only screen and (max-width: 769px) {
+    --font-hero: 5.2rem;
+    --font-96: 5.6rem;
+    --font-72: 4.6rem;
+    --font-56: 3.4rem;
+    --font-40: 3rem;
+    --font-32: 2.6rem;
+    --font-24: 2.1rem;
+    --font-20: 1.8rem;
+    --font-18: 1.7rem;
+    --font-16: 1.5rem;
+    --header-height: 6.4rem;
+  }
+
+  @media only screen and (max-width: 575px) {
+    --font-hero: 4.2rem;
+    --font-96: 4.6rem;
+    --font-72: 3.8rem;
+    --font-56: 2.8rem;
+    --font-40: 2.6rem;
+    --font-32: 2.3rem;
+    --font-24: 1.9rem;
+    --font-18: 1.6rem;
+    --gutter: 2rem;
+  }
+}

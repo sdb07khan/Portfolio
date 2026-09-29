@@ -1,0 +1,121 @@
+// ============================================================
+// Reset + base element styles
+// (Google Fonts are loaded via <link> in <head> — faster than an
+// @import here, which would block until main.css itself arrives.)
+// ============================================================
+
+*,
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  // 1rem = 10px
+  font-size: 62.5%;
+  -webkit-text-size-adjust: 100%;
+}
+
+// Lenis' recommended base rules
+html.lenis,
+html.lenis body {
+  height: auto;
+}
+
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+
+.lenis.lenis-stopped {
+  overflow: hidden;
+}
+
+body {
+  font-family: var(--font-sans);
+  font-size: var(--font-16);
+  line-height: 1.6;
+  color: var(--color-ink);
+  background-color: var(--color-paper);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
+
+  // Fine film grain over everything — keeps the flat paper tones from
+  // looking digital. Static SVG noise, so it costs nothing per frame.
+  &::after {
+    content: "";
+    position: fixed;
+    inset: 0;
+    z-index: 150;
+    pointer-events: none;
+    opacity: 0.07;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
+}
+
+html.is-loading body {
+  overflow: hidden;
+}
+
+img {
+  max-width: 100%;
+  display: block;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+ul,
+ol {
+  list-style: none;
+}
+
+button,
+input {
+  font: inherit;
+  color: inherit;
+  border: none;
+  background: none;
+}
+
+button {
+  cursor: pointer;
+}
+
+h1,
+h2,
+h3,
+h4 {
+  font-weight: 500;
+  line-height: 1;
+  letter-spacing: -0.035em;
+}
+
+// The serif italic "voice" used for accent words inside headings
+em {
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-weight: 400;
+  letter-spacing: -0.01em;
+}
+
+::selection {
+  background-color: var(--color-clay);
+  color: var(--color-paper);
+}
+
+:focus-visible {
+  outline: 2px solid var(--color-clay);
+  outline-offset: 3px;
+}
+
+// Custom cursor replaces the native one on fine pointers only
+// (see _cursor.scss); text inputs keep their caret.
+html.has-cursor,
+html.has-cursor * {
+  cursor: none !important;
+}

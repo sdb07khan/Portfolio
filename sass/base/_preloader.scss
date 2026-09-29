@@ -1,0 +1,102 @@
+// ============================================================
+// Preloader — boot log + percentage counter, wiped up on finish
+// ============================================================
+
+.preloader {
+  position: fixed;
+  inset: 0;
+  z-index: 200;
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 2rem;
+  padding: 5rem var(--gutter);
+  background-color: var(--color-ink);
+  color: var(--color-paper);
+
+  @media only screen and (max-width: 575px) {
+    flex-direction: column-reverse;
+    align-items: flex-start;
+    justify-content: flex-start;
+    padding-top: 30vh;
+  }
+
+  .preloader__corner {
+    position: absolute;
+    width: 2.4rem;
+    height: 2.4rem;
+    border: 0 solid var(--color-stone-light);
+
+    &--tl {
+      top: 2.4rem;
+      left: 2.4rem;
+      border-top-width: 1px;
+      border-left-width: 1px;
+    }
+
+    &--tr {
+      top: 2.4rem;
+      right: 2.4rem;
+      border-top-width: 1px;
+      border-right-width: 1px;
+    }
+
+    &--bl {
+      bottom: 2.4rem;
+      left: 2.4rem;
+      border-bottom-width: 1px;
+      border-left-width: 1px;
+    }
+
+    &--br {
+      bottom: 2.4rem;
+      right: 2.4rem;
+      border-bottom-width: 1px;
+      border-right-width: 1px;
+    }
+  }
+
+  .preloader__log {
+    font-family: var(--font-mono);
+    font-size: var(--font-12);
+    line-height: 1.9;
+    color: var(--color-stone-light);
+
+    li {
+      opacity: 0;
+      transform: translateY(0.6rem);
+      transition:
+        opacity 0.4s ease,
+        transform 0.6s var(--ease-out);
+
+      &.is-visible {
+        opacity: 1;
+        transform: none;
+      }
+
+      &:last-child {
+        color: var(--color-sand);
+      }
+    }
+  }
+
+  .preloader__count {
+    font-size: 18rem;
+    font-weight: 300;
+    line-height: 0.8;
+    letter-spacing: -0.06em;
+    font-variant-numeric: tabular-nums;
+
+    @media only screen and (max-width: 769px) {
+      font-size: 11rem;
+    }
+
+    .preloader__percent {
+      font-size: 0.3em;
+      letter-spacing: 0;
+      color: var(--color-clay);
+      vertical-align: top;
+      margin-left: 0.6rem;
+    }
+  }
+}

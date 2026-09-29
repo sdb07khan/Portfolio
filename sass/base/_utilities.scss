@@ -1,0 +1,100 @@
+// ============================================================
+// Reusable utility classes
+// ============================================================
+
+.section-wrapper {
+  max-width: 1720px;
+  margin: 0 auto;
+  padding: 0 var(--gutter);
+}
+
+.visually-hidden {
+  position: absolute !important;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
+
+// Small mono label above each section heading: "01 About"
+.sectionLabel {
+  display: flex;
+  align-items: center;
+  gap: 1.2rem;
+  font-family: var(--font-mono);
+  font-size: var(--font-12);
+  line-height: 1;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--color-stone);
+
+  span {
+    color: var(--color-clay);
+  }
+
+  &--light {
+    color: var(--color-stone-light);
+
+    span {
+      color: var(--color-sand);
+    }
+  }
+}
+
+// Pill button
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.8rem;
+  padding: 1.6rem 2.8rem;
+  border-radius: 10rem;
+  border: 1px solid currentColor;
+  font-family: var(--font-mono);
+  font-size: var(--font-12);
+  line-height: 1;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  transition:
+    background-color 0.4s var(--ease-out),
+    color 0.4s var(--ease-out),
+    border-color 0.4s var(--ease-out);
+
+  &:hover {
+    background-color: var(--color-ink);
+    border-color: var(--color-ink);
+    color: var(--color-paper);
+  }
+
+  &--light {
+    color: var(--color-paper);
+
+    &:hover {
+      background-color: var(--color-paper);
+      border-color: var(--color-paper);
+      color: var(--color-ink);
+    }
+  }
+}
+
+// Word-split headings — main.js wraps every word in
+// .splitWord > .splitWord__inner and slides the inner span up.
+.splitWord {
+  display: inline-block;
+  overflow: hidden;
+  vertical-align: top;
+  // Room for descenders + the serif italic's overhang
+  padding: 0 0.04em 0.12em;
+  margin: 0 -0.04em -0.12em;
+
+  .splitWord__inner {
+    display: inline-block;
+    will-change: transform;
+  }
+}
+
+// Words in the About statement, faded in by scroll (scrubbed)
+.fillWord {
+  display: inline;
+}

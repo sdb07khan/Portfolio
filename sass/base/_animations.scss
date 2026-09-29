@@ -1,0 +1,44 @@
+// ============================================================
+// Keyframes
+// ============================================================
+
+@keyframes pulseDot {
+  0%,
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+
+  50% {
+    transform: scale(0.55);
+    opacity: 0.5;
+  }
+}
+
+@keyframes blinkCaret {
+  50% {
+    opacity: 0;
+  }
+}
+
+@keyframes scrollCue {
+  0% {
+    transform: scaleY(0);
+    transform-origin: top;
+  }
+
+  45% {
+    transform: scaleY(1);
+    transform-origin: top;
+  }
+
+  55% {
+    transform: scaleY(1);
+    transform-origin: bottom;
+  }
+
+  100% {
+    transform: scaleY(0);
+    transform-origin: bottom;
+  }
+}

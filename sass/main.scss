@@ -1,0 +1,16 @@
+// ============================================================
+// Main Sass entry point — compiles to assets/css/main.css.
+// ============================================================
+
+@import "abstracts/variables";
+
+@import "base/base";
+@import "base/utilities";
+@import "base/animations";
+@import "base/preloader";
+@import "base/cursor";
+@import "base/header";
+@import "base/footer";
+
+// Page partials — one per page, added as each page is built.
+@import "pages/home";

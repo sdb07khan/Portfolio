@@ -1,0 +1,43 @@
+// ============================================================
+// Site footer (sits at the bottom of the dark contact section)
+// ============================================================
+
+.siteFooter {
+  margin-top: 12rem;
+  border-top: 1px solid var(--color-line-light);
+
+  .siteFooter__inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 2rem;
+    padding-top: 2.8rem;
+    padding-bottom: 2.8rem;
+
+    @media only screen and (max-width: 769px) {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 1.2rem;
+    }
+
+    .siteFooter__item {
+      font-family: var(--font-mono);
+      font-size: var(--font-12);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--color-stone-light);
+
+      span {
+        color: var(--color-paper);
+      }
+    }
+
+    .siteFooter__top {
+      transition: color 0.3s ease;
+
+      &:hover {
+        color: var(--color-sand);
+      }
+    }
+  }
+}

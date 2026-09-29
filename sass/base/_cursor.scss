@@ -1,0 +1,78 @@
+// ============================================================
+// Custom cursor (fine pointers only — main.js adds html.has-cursor)
+// ============================================================
+
+.cursor {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 300;
+  display: none;
+  pointer-events: none;
+
+  html.has-cursor & {
+    display: block;
+  }
+
+  // The dot itself — sized around the pointer so JS only moves x/y
+  &::before {
+    content: "";
+    position: absolute;
+    top: -0.5rem;
+    left: -0.5rem;
+    width: 1rem;
+    height: 1rem;
+    border-radius: 50%;
+    background-color: var(--color-clay);
+    transition: transform 0.45s var(--ease-out);
+  }
+
+  // Small pill that sits beside the dot: "press", "drag", "throw"…
+  .cursor__label {
+    position: absolute;
+    top: 1.4rem;
+    left: 1.4rem;
+    padding: 0.6rem 1rem;
+    border-radius: 10rem;
+    background-color: var(--color-ink);
+    color: var(--color-paper);
+    font-family: var(--font-mono);
+    font-size: 1.1rem;
+    line-height: 1;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    white-space: nowrap;
+    opacity: 0;
+    transform: scale(0.6);
+    transform-origin: top left;
+    transition:
+      opacity 0.3s ease,
+      transform 0.45s var(--ease-out);
+  }
+
+  &.is-hover::before {
+    transform: scale(3.2);
+    opacity: 0.35;
+  }
+
+  &.is-label .cursor__label {
+    opacity: 1;
+    transform: none;
+  }
+
+  // Large "View" disc over project cards
+  &.is-big {
+    &::before {
+      transform: scale(9);
+      opacity: 1;
+    }
+
+    .cursor__label {
+      top: 0;
+      left: 0;
+      padding: 0;
+      background-color: transparent;
+      transform: translate(-50%, -50%);
+    }
+  }
+}

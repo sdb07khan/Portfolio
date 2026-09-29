@@ -1,0 +1,391 @@
+<!doctype html>
+<html lang="en" class="is-loading">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Saddab Khan — Front-end Developer</title>
+    <meta
+      name="description"
+      content="Front-end developer from India building fast, interactive websites — and handling the back end, hosting and DNS behind them."
+    />
+    <meta name="theme-color" content="#ece8e1" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Geist:wght@300..700&family=Geist+Mono:wght@400;500&family=Instrument+Serif:ital@0;1&display=swap"
+    />
+    <link rel="stylesheet" href="assets/css/main.css?v=9" />
+
+    <!-- Site content + shared state: must run before everything below -->
+    <script src="assets/js/data.js?v=9"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.13.0/gsap.min.js" defer></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.13.0/ScrollTrigger.min.js" defer></script>
+    <script src="https://cdn.jsdelivr.net/npm/lenis@1.3.4/dist/lenis.min.js" defer></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/matter-js/0.20.0/matter.min.js" defer></script>
+    <script src="assets/js/main.js?v=9" defer></script>
+
+    <!-- Three.js scenes are ES modules (Three no longer ships a UMD build) -->
+    <script type="importmap">
+      {
+        "imports": {
+          "three": "https://cdn.jsdelivr.net/npm/three@0.170.0/build/three.module.js",
+          "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.170.0/examples/jsm/"
+        }
+      }
+    </script>
+    <script type="module" src="assets/js/three/heroScene.js?v=9" async></script>
+    <script type="module" src="assets/js/three/stackScene.js?v=9" async></script>
+    <script type="module" src="assets/js/three/floaters.js?v=9" async></script>
+  </head>
+  <body>
+    <!-- Preloader ------------------------------------------------------ -->
+    <div class="preloader" id="preloader" aria-hidden="true">
+      <span class="preloader__corner preloader__corner--tl"></span>
+      <span class="preloader__corner preloader__corner--tr"></span>
+      <span class="preloader__corner preloader__corner--bl"></span>
+      <span class="preloader__corner preloader__corner--br"></span>
+      <ul class="preloader__log" id="preloaderLog">
+        <li>&gt; mounting keycaps</li>
+        <li>&gt; compiling sass</li>
+        <li>&gt; warming up three.js</li>
+        <li>&gt; pointing dns</li>
+        <li>&gt; ready</li>
+      </ul>
+      <p class="preloader__count"><span id="preloaderCount">0</span><span class="preloader__percent">%</span></p>
+    </div>
+
+    <div class="cursor" id="cursor" aria-hidden="true"><span class="cursor__label"></span></div>
+    <canvas class="floatersCanvas" id="floatersCanvas" aria-hidden="true"></canvas>
+
+    <!-- Header --------------------------------------------------------- -->
+    <header class="siteHeader" id="siteHeader">
+      <div class="section-wrapper siteHeader__inner">
+        <a href="#top" class="siteHeader__logo">
+          Saddab Khan<span class="siteHeader__logoRole">Front-end developer</span>
+        </a>
+        <nav class="siteNav" aria-label="Primary">
+          <a href="#about" class="siteNav__item">About</a>
+          <a href="#stack" class="siteNav__item">Stack</a>
+          <a href="#skills" class="siteNav__item">Skills</a>
+          <a href="#work" class="siteNav__item">Work</a>
+          <a href="#contact" class="siteNav__item">Contact</a>
+        </nav>
+        <div class="siteHeader__actions">
+          <span class="siteHeader__status">Available for work</span>
+          <button
+            type="button"
+            class="siteHeader__menuToggle"
+            id="menuToggle"
+            aria-expanded="false"
+            aria-controls="mobileMenu"
+          >
+            Menu
+          </button>
+        </div>
+      </div>
+    </header>
+
+    <div class="mobileMenu" id="mobileMenu" hidden>
+      <nav class="mobileMenu__list" aria-label="Mobile">
+        <a href="#about" class="mobileMenu__link">About</a>
+        <a href="#stack" class="mobileMenu__link">Stack</a>
+        <a href="#skills" class="mobileMenu__link">Skills</a>
+        <a href="#work" class="mobileMenu__link">Work</a>
+        <a href="#contact" class="mobileMenu__link">Contact</a>
+      </nav>
+      <p class="mobileMenu__meta">Available for full-time roles and freelance projects.</p>
+    </div>
+
+    <main>
+      <!-- Hero: interactive 3D keyboard + terminal ----------------------- -->
+      <section class="heroSection" id="top">
+        <canvas
+          class="heroSection__canvas"
+          id="heroCanvas"
+          data-cursor="press"
+          role="img"
+          aria-label="An interactive 3D keyboard. Hover, tap or type on your own keyboard to press its keys."
+        ></canvas>
+
+        <div class="section-wrapper heroSection__inner">
+          <p class="heroSection__eyebrow">
+            <span>Front-end developer</span><span>Based in India</span>
+          </p>
+
+          <h1 class="heroSection__title">
+            <span class="heroSection__line"><span class="heroSection__lineInner">I build websites</span></span>
+            <span class="heroSection__line"><span class="heroSection__lineInner">from the first <em>keystroke</em></span></span>
+            <span class="heroSection__line"><span class="heroSection__lineInner">to the live server.</span></span>
+          </h1>
+
+          <div class="heroSection__bottom">
+            <div class="terminal" id="terminal">
+              <div class="terminal__bar">
+                <span class="terminal__dots"><span></span><span></span><span></span></span>
+                <span>zsh — portfolio</span>
+              </div>
+              <div class="terminal__output" id="terminalOutput" aria-live="polite"></div>
+              <label class="terminal__prompt">
+                <span class="terminal__user">visitor@saddab:~$</span>
+                <input
+                  type="text"
+                  class="terminal__input"
+                  id="terminalInput"
+                  autocomplete="off"
+                  autocapitalize="off"
+                  spellcheck="false"
+                  maxlength="32"
+                  placeholder="type help"
+                  aria-label="Terminal. Type help and press enter."
+                />
+              </label>
+            </div>
+
+            <div class="heroSection__aside">
+              <p class="heroSection__hint">Hover, tap or type —<br />the keys are real.</p>
+              <a href="#about" class="heroSection__scroll">Scroll to explore</a>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- About ---------------------------------------------------------- -->
+      <section class="aboutSection" id="about">
+        <div class="section-wrapper">
+          <p class="sectionLabel"><span>01</span>About</p>
+          <p class="aboutSection__statement js-fill">
+            I'm a front-end developer who doesn't stop at the front end. I write the HTML, CSS and
+            JavaScript you see, build the WordPress or Webflow behind it, point the domain at the
+            server — and keep the whole thing <em>fast</em> long after launch.
+          </p>
+
+          <ul class="aboutSection__facts">
+            <li class="factCard reveal">
+              <span class="factCard__label">Front end</span>
+              <span class="factCard__value">Hands-on, daily</span>
+              <span class="factCard__text">HTML, CSS, Sass, JavaScript, React, Three.js</span>
+            </li>
+            <li class="factCard reveal">
+              <span class="factCard__label">Back end &amp; CMS</span>
+              <span class="factCard__value">Comfortable</span>
+              <span class="factCard__text">WordPress, Webflow, PHP, MySQL</span>
+            </li>
+            <li class="factCard reveal">
+              <span class="factCard__label">Hosting &amp; DNS</span>
+              <span class="factCard__value">Handled</span>
+              <span class="factCard__text">Domains, SSL, servers, backups, maintenance</span>
+            </li>
+            <li class="factCard reveal">
+              <span class="factCard__label">Design</span>
+              <span class="factCard__value">Working knowledge</span>
+              <span class="factCard__text">Figma — reading, inspecting and adapting designs</span>
+            </li>
+          </ul>
+        </div>
+      </section>
+
+      <div class="marquee" aria-hidden="true">
+        <div class="marquee__track">
+          <div class="marquee__group">
+            <span>Open to full-time roles</span><span class="marquee__star">✦</span>
+            <span>Freelance projects</span><span class="marquee__star">✦</span>
+            <span>Interactive websites</span><span class="marquee__star">✦</span>
+            <span>WordPress to WebGL</span><span class="marquee__star">✦</span>
+          </div>
+          <div class="marquee__group">
+            <span>Open to full-time roles</span><span class="marquee__star">✦</span>
+            <span>Freelance projects</span><span class="marquee__star">✦</span>
+            <span>Interactive websites</span><span class="marquee__star">✦</span>
+            <span>WordPress to WebGL</span><span class="marquee__star">✦</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Stack: pinned 3D anatomy of a website -------------------------- -->
+      <section class="stackSection" id="stack">
+        <canvas
+          class="stackSection__canvas"
+          id="stackCanvas"
+          data-cursor="drag"
+          role="img"
+          aria-label="A 3D stack of the six layers of a website, separating as you scroll."
+        ></canvas>
+
+        <div class="section-wrapper stackSection__inner">
+          <div class="stackSection__head">
+            <p class="sectionLabel sectionLabel--light"><span>02</span>Anatomy of a website</p>
+            <h2 class="stackSection__title">Six layers. <em>One developer.</em></h2>
+          </div>
+
+          <div class="stackSection__bottom">
+            <!-- Steps rendered from PORTFOLIO.stackLayers in main.js -->
+            <div class="stackSection__steps" id="stackSteps"></div>
+
+            <div class="stackSection__footer">
+              <div class="stackSection__progress">
+                <span id="stackCount">00</span>
+                <span class="stackSection__bar"><span id="stackBar"></span></span>
+                <span id="stackTotal">06</span>
+              </div>
+              <p class="stackSection__hint">Drag to spin it</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Skills: physics toolbox ---------------------------------------- -->
+      <section class="skillsSection" id="skills">
+        <div class="section-wrapper">
+          <div class="skillsSection__head">
+            <div>
+              <p class="sectionLabel"><span>03</span>Toolbox</p>
+              <h2 class="skillsSection__title js-split">The tools I reach for. <em>Go on, throw them.</em></h2>
+            </div>
+            <!-- Legend buttons rendered from PORTFOLIO.skillGroups -->
+            <div class="skillsLegend" id="skillsLegend"></div>
+          </div>
+
+          <div class="skillsBox" id="skillsBox" data-cursor="throw" aria-hidden="true">
+            <p class="skillsBox__hint">Drag, throw, or tap a group to shake it</p>
+          </div>
+          <ul class="visually-hidden" id="skillsList"></ul>
+        </div>
+      </section>
+
+      <!-- Work: horizontal pinned gallery -------------------------------- -->
+      <section class="workSection" id="work">
+        <div class="section-wrapper workSection__head">
+          <div>
+            <p class="sectionLabel"><span>04</span>Selected work</p>
+            <h2 class="workSection__title js-split">Things I've <em>built.</em></h2>
+          </div>
+          <p class="workSection__count" id="workCount"></p>
+        </div>
+        <!-- Cards rendered from PORTFOLIO.projects in main.js -->
+        <div class="workSection__track" id="workTrack"></div>
+      </section>
+
+      <!-- Services + scores ---------------------------------------------- -->
+      <section class="servicesSection" id="services">
+        <div class="section-wrapper servicesSection__grid">
+          <div>
+            <p class="sectionLabel"><span>05</span>Beyond the front end</p>
+            <h2 class="servicesSection__title js-split">Launch is the <em>middle,</em> not the end.</h2>
+
+            <ol class="serviceList">
+              <li class="serviceItem reveal">
+                <span class="serviceItem__index">01</span>
+                <div>
+                  <h3 class="serviceItem__title">Back end &amp; CMS</h3>
+                  <p class="serviceItem__text">Custom WordPress themes, blocks and plugins, or Webflow CMS — built so the content team never needs to call me.</p>
+                </div>
+              </li>
+              <li class="serviceItem reveal">
+                <span class="serviceItem__index">02</span>
+                <div>
+                  <h3 class="serviceItem__title">Hosting &amp; domains</h3>
+                  <p class="serviceItem__text">Domain registration, DNS, SSL, email and server setup — the unglamorous bits that decide whether launch day goes well.</p>
+                </div>
+              </li>
+              <li class="serviceItem reveal">
+                <span class="serviceItem__index">03</span>
+                <div>
+                  <h3 class="serviceItem__title">Site optimisation</h3>
+                  <p class="serviceItem__text">Core Web Vitals, image and font strategy, caching and lazy-loading — fast on a mid-range phone, not just a MacBook.</p>
+                </div>
+              </li>
+              <li class="serviceItem reveal">
+                <span class="serviceItem__index">04</span>
+                <div>
+                  <h3 class="serviceItem__title">Maintenance</h3>
+                  <p class="serviceItem__text">Updates, backups, uptime checks and fixes when something breaks at 2am. Websites are gardens, not statues.</p>
+                </div>
+              </li>
+            </ol>
+          </div>
+
+          <aside class="scorePanel reveal" aria-label="Lighthouse targets">
+            <p class="scorePanel__label">What I build towards on every launch</p>
+            <div class="scorePanel__grid">
+              <div class="scoreRing">
+                <div class="scoreRing__svg">
+                  <svg viewBox="0 0 100 100" aria-hidden="true">
+                    <circle class="scoreRing__track" cx="50" cy="50" r="44" />
+                    <circle class="scoreRing__progress" cx="50" cy="50" r="44" />
+                  </svg>
+                  <span class="scoreRing__value">0</span>
+                </div>
+                <span class="scoreRing__name">Performance</span>
+              </div>
+              <div class="scoreRing">
+                <div class="scoreRing__svg">
+                  <svg viewBox="0 0 100 100" aria-hidden="true">
+                    <circle class="scoreRing__track" cx="50" cy="50" r="44" />
+                    <circle class="scoreRing__progress" cx="50" cy="50" r="44" />
+                  </svg>
+                  <span class="scoreRing__value">0</span>
+                </div>
+                <span class="scoreRing__name">Accessibility</span>
+              </div>
+              <div class="scoreRing">
+                <div class="scoreRing__svg">
+                  <svg viewBox="0 0 100 100" aria-hidden="true">
+                    <circle class="scoreRing__track" cx="50" cy="50" r="44" />
+                    <circle class="scoreRing__progress" cx="50" cy="50" r="44" />
+                  </svg>
+                  <span class="scoreRing__value">0</span>
+                </div>
+                <span class="scoreRing__name">Best practices</span>
+              </div>
+              <div class="scoreRing">
+                <div class="scoreRing__svg">
+                  <svg viewBox="0 0 100 100" aria-hidden="true">
+                    <circle class="scoreRing__track" cx="50" cy="50" r="44" />
+                    <circle class="scoreRing__progress" cx="50" cy="50" r="44" />
+                  </svg>
+                  <span class="scoreRing__value">0</span>
+                </div>
+                <span class="scoreRing__name">SEO</span>
+              </div>
+            </div>
+            <p class="scorePanel__note">Lighthouse targets, measured on real devices — not a promise that every plugin agrees.</p>
+          </aside>
+        </div>
+      </section>
+
+      <!-- Contact -------------------------------------------------------- -->
+      <section class="contactSection" id="contact">
+        <div class="section-wrapper">
+          <p class="sectionLabel sectionLabel--light"><span>06</span>Contact</p>
+          <h2 class="contactSection__title js-split">Let's build something <em>worth scrolling.</em></h2>
+
+          <div class="contactSection__actions">
+            <button type="button" class="contactSection__email magnetic" id="copyEmail" data-cursor="copy">
+              <span class="contactSection__emailText" id="emailText">hello@yourname.dev</span>
+              <span class="contactSection__emailHint" id="emailHint">Click to copy</span>
+            </button>
+            <a href="assets/documents/resume.pdf" class="btn btn--light magnetic" target="_blank" rel="noopener">Download resume</a>
+          </div>
+
+          <ul class="contactSection__links">
+            <li><a href="#" class="contactLink" target="_blank" rel="noopener">LinkedIn <span aria-hidden="true">↗</span></a></li>
+            <li><a href="#" class="contactLink" target="_blank" rel="noopener">GitHub <span aria-hidden="true">↗</span></a></li>
+            <li><a href="#" class="contactLink" target="_blank" rel="noopener">Instagram <span aria-hidden="true">↗</span></a></li>
+            <li><a href="#" class="contactLink" target="_blank" rel="noopener">Awwwards <span aria-hidden="true">↗</span></a></li>
+          </ul>
+        </div>
+
+        <footer class="siteFooter">
+          <div class="section-wrapper siteFooter__inner">
+            <p class="siteFooter__item">Local time <span id="localTime">--:--</span></p>
+            <p class="siteFooter__item">Designed &amp; hand-coded by Saddab Khan — © <span id="year">2026</span></p>
+            <a href="#top" class="siteFooter__item siteFooter__top">Back to top ↑</a>
+          </div>
+        </footer>
+      </section>
+    </main>
+  </body>
+</html>

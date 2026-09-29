@@ -1,0 +1,1264 @@
+// ============================================================
+// Home page — every section, top to bottom
+// ============================================================
+
+// Fixed, pointer-transparent canvas for the loose keycaps that drift
+// between sections (assets/js/three/floaters.js). Sits above section
+// backgrounds but below the header, cursor and preloader.
+.floatersCanvas {
+  position: fixed;
+  inset: 0;
+  z-index: 40;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+
+// ============================================================
+// Hero — 3D keyboard + terminal
+// ============================================================
+
+.heroSection {
+  position: relative;
+  height: 100vh;
+  height: 100svh;
+  min-height: 62rem;
+  overflow: hidden;
+  background-color: var(--color-paper);
+
+  .heroSection__canvas {
+    position: absolute;
+    inset: 0;
+    display: block;
+    width: 100%;
+    height: 100%;
+    // Vertical swipes still scroll the page on touch; horizontal
+    // swipes spin the keyboard (see heroScene.js).
+    touch-action: pan-y;
+
+    .no-webgl & {
+      display: none;
+    }
+  }
+
+  // Overlay is click-through so the keyboard underneath stays
+  // hoverable; only the terminal and links opt back in.
+  .heroSection__inner {
+    position: relative;
+    z-index: 2;
+    height: 100%;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    grid-template-rows: auto auto 1fr;
+    padding-top: calc(var(--header-height) + 3.2rem);
+    padding-bottom: 3.2rem;
+    pointer-events: none;
+
+    .heroSection__eyebrow {
+      display: flex;
+      gap: 2.4rem;
+      font-family: var(--font-mono);
+      font-size: var(--font-12);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--color-stone);
+
+      span + span::before {
+        content: "/";
+        margin-right: 2.4rem;
+        color: var(--color-clay);
+      }
+    }
+
+    .heroSection__title {
+      margin-top: 2.4rem;
+      font-size: var(--font-hero);
+      font-weight: 500;
+      line-height: 0.96;
+      letter-spacing: -0.05em;
+
+      .heroSection__line {
+        display: block;
+        overflow: hidden;
+        padding-bottom: 0.08em;
+
+        .heroSection__lineInner {
+          display: inline-block;
+        }
+      }
+
+      em {
+        color: var(--color-clay);
+        letter-spacing: -0.02em;
+      }
+    }
+
+    .heroSection__bottom {
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      gap: 4rem;
+
+      .heroSection__aside {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-end;
+        gap: 2.4rem;
+        text-align: right;
+        font-family: var(--font-mono);
+        font-size: var(--font-12);
+        line-height: 1.6;
+        text-transform: uppercase;
+        letter-spacing: 0.08em;
+        color: var(--color-stone);
+
+        @media only screen and (max-width: 769px) {
+          display: none;
+        }
+
+        .heroSection__scroll {
+          position: relative;
+          padding-right: 2rem;
+          pointer-events: auto;
+          color: var(--color-ink);
+
+          &::after {
+            content: "";
+            position: absolute;
+            right: 0.4rem;
+            top: 0;
+            width: 1px;
+            height: 100%;
+            background-color: currentColor;
+            animation: scrollCue 2.2s var(--ease-out) infinite;
+          }
+        }
+      }
+    }
+  }
+}
+
+// Terminal — a real <input>; the 3D keys type into it too
+.terminal {
+  width: 44rem;
+  max-width: 100%;
+  padding: 1.4rem 1.8rem 1.6rem;
+  border: 1px solid var(--color-line);
+  border-radius: 1.4rem;
+  background-color: rgba(236, 232, 225, 0.7);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  font-family: var(--font-mono);
+  font-size: var(--font-14);
+  pointer-events: auto;
+
+  @media only screen and (max-width: 769px) {
+    width: 100%;
+    font-size: 1.2rem;
+  }
+
+  .terminal__bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 1.2rem;
+    font-size: 1.1rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--color-stone);
+
+    .terminal__dots {
+      display: flex;
+      gap: 0.6rem;
+
+      span {
+        width: 0.9rem;
+        height: 0.9rem;
+        border-radius: 50%;
+        border: 1px solid var(--color-stone-light);
+
+        &:first-child {
+          background-color: var(--color-clay);
+          border-color: var(--color-clay);
+        }
+      }
+    }
+  }
+
+  // Fixed height + bottom-aligned lines, so printing never shifts the
+  // layout — old lines just scroll off the top.
+  .terminal__output {
+    height: 6.4rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    gap: 0.3rem;
+    overflow: hidden;
+
+    .terminal__line {
+      line-height: 1.4;
+      white-space: pre-wrap;
+      color: var(--color-stone);
+
+      &--cmd {
+        color: var(--color-ink);
+      }
+
+      &--accent {
+        color: var(--color-clay);
+      }
+    }
+  }
+
+  .terminal__prompt {
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+    margin-top: 1rem;
+    padding-top: 1rem;
+    border-top: 1px dashed var(--color-line);
+
+    .terminal__user {
+      white-space: nowrap;
+      color: var(--color-clay);
+    }
+
+    .terminal__input {
+      flex: 1;
+      min-width: 0;
+      outline: none;
+      caret-color: var(--color-clay);
+      color: var(--color-ink);
+      // 16px minimum stops iOS zooming the page on focus
+      font-size: 1.6rem;
+
+      &::placeholder {
+        color: var(--color-stone-light);
+      }
+    }
+  }
+}
+
+// ============================================================
+// About
+// ============================================================
+
+.aboutSection {
+  position: relative;
+  padding: 18rem 0 12rem;
+  background-color: var(--color-paper);
+
+  @media only screen and (max-width: 769px) {
+    padding: 12rem 0 8rem;
+  }
+
+  .aboutSection__statement {
+    margin-top: 4rem;
+    max-width: 130rem;
+    font-size: var(--font-56);
+    font-weight: 400;
+    line-height: 1.1;
+    letter-spacing: -0.035em;
+
+    em {
+      color: var(--color-clay);
+    }
+  }
+
+  .aboutSection__facts {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    margin-top: 12rem;
+    border-top: 1px solid var(--color-line);
+
+    @media only screen and (max-width: 991px) {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      margin-top: 8rem;
+    }
+
+    @media only screen and (max-width: 575px) {
+      grid-template-columns: 1fr;
+    }
+
+    .factCard {
+      display: flex;
+      flex-direction: column;
+      gap: 1.2rem;
+      padding: 2.8rem 2.4rem 2.8rem 0;
+
+      @media only screen and (max-width: 575px) {
+        padding-right: 0;
+        border-bottom: 1px solid var(--color-line);
+      }
+
+      .factCard__label {
+        font-family: var(--font-mono);
+        font-size: var(--font-12);
+        text-transform: uppercase;
+        letter-spacing: 0.08em;
+        color: var(--color-clay);
+      }
+
+      .factCard__value {
+        font-size: var(--font-24);
+        font-weight: 500;
+        letter-spacing: -0.03em;
+        line-height: 1.1;
+      }
+
+      .factCard__text {
+        font-size: var(--font-14);
+        line-height: 1.5;
+        color: var(--color-stone);
+      }
+    }
+  }
+}
+
+// ============================================================
+// Marquee
+// ============================================================
+
+.marquee {
+  overflow: hidden;
+  padding: 3.2rem 0;
+  border-top: 1px solid var(--color-line);
+  background-color: var(--color-paper);
+
+  .marquee__track {
+    display: flex;
+    width: max-content;
+    will-change: transform;
+
+    .marquee__group {
+      display: flex;
+      align-items: center;
+      gap: 4rem;
+      padding-right: 4rem;
+
+      span {
+        font-size: var(--font-72);
+        font-weight: 400;
+        line-height: 1;
+        letter-spacing: -0.045em;
+        white-space: nowrap;
+      }
+
+      .marquee__star {
+        font-size: var(--font-32);
+        color: var(--color-clay);
+      }
+    }
+  }
+}
+
+// ============================================================
+// Stack — pinned 3D anatomy of a website
+// ============================================================
+
+.stackSection {
+  position: relative;
+  height: 100vh;
+  height: 100svh;
+  overflow: hidden;
+  background-color: var(--color-ink);
+  color: var(--color-paper);
+
+  .stackSection__canvas {
+    position: absolute;
+    inset: 0;
+    display: block;
+    width: 100%;
+    height: 100%;
+    touch-action: pan-y;
+  }
+
+  .stackSection__inner {
+    position: relative;
+    z-index: 2;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding-top: calc(var(--header-height) + 2.4rem);
+    padding-bottom: 3.2rem;
+    pointer-events: none;
+
+    .stackSection__title {
+      margin-top: 2.4rem;
+      max-width: 9ch;
+      font-size: var(--font-72);
+      letter-spacing: -0.045em;
+
+      em {
+        color: var(--color-sand);
+      }
+
+      @media only screen and (max-width: 769px) {
+        max-width: none;
+        font-size: var(--font-40);
+      }
+    }
+
+    .stackSection__bottom {
+      display: flex;
+      flex-direction: column;
+      gap: 3.2rem;
+
+      // Steps are stacked on top of each other and cross-faded
+      .stackSection__steps {
+        position: relative;
+        width: 44rem;
+        max-width: 100%;
+        height: 24rem;
+
+        @media only screen and (max-width: 769px) {
+          height: 21rem;
+        }
+
+        .stackStep {
+          position: absolute;
+          left: 0;
+          bottom: 0;
+          width: 100%;
+          opacity: 0;
+          visibility: hidden;
+          transform: translateY(2.4rem);
+          transition:
+            opacity 0.5s ease,
+            transform 0.8s var(--ease-out),
+            visibility 0.5s;
+
+          &.is-active {
+            opacity: 1;
+            visibility: visible;
+            transform: none;
+          }
+
+          .stackStep__eyebrow {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            font-family: var(--font-mono);
+            font-size: var(--font-12);
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            color: var(--color-stone-light);
+
+            &::before {
+              content: "";
+              width: 1rem;
+              height: 1rem;
+              border-radius: 0.3rem;
+              background-color: var(--layer-color, var(--color-sand));
+            }
+          }
+
+          .stackStep__title {
+            margin-top: 1.4rem;
+            font-size: var(--font-40);
+            letter-spacing: -0.04em;
+            line-height: 1.02;
+          }
+
+          .stackStep__text {
+            margin-top: 1.4rem;
+            max-width: 40ch;
+            font-size: var(--font-16);
+            line-height: 1.5;
+            color: var(--color-stone-light);
+          }
+
+          .stackStep__tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.8rem;
+            margin-top: 2rem;
+
+            li {
+              padding: 0.6rem 1.1rem;
+              border: 1px solid var(--color-line-light);
+              border-radius: 10rem;
+              font-family: var(--font-mono);
+              font-size: 1.1rem;
+              line-height: 1;
+              text-transform: uppercase;
+              letter-spacing: 0.06em;
+            }
+          }
+        }
+      }
+
+      .stackSection__footer {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 2rem;
+        font-family: var(--font-mono);
+        font-size: var(--font-12);
+        text-transform: uppercase;
+        letter-spacing: 0.08em;
+
+        .stackSection__progress {
+          display: flex;
+          align-items: center;
+          gap: 1.4rem;
+          font-variant-numeric: tabular-nums;
+
+          .stackSection__bar {
+            position: relative;
+            width: 18rem;
+            height: 1px;
+            background-color: var(--color-line-light);
+
+            @media only screen and (max-width: 575px) {
+              width: 10rem;
+            }
+
+            span {
+              position: absolute;
+              inset: 0;
+              background-color: var(--color-sand);
+              transform: scaleX(0);
+              transform-origin: left;
+            }
+          }
+        }
+
+        .stackSection__hint {
+          color: var(--color-stone-light);
+        }
+      }
+    }
+  }
+}
+
+// ============================================================
+// Skills — physics toolbox
+// ============================================================
+
+.skillsSection {
+  position: relative;
+  padding: 16rem 0 12rem;
+  background-color: var(--color-paper);
+
+  @media only screen and (max-width: 769px) {
+    padding: 10rem 0 8rem;
+  }
+
+  .skillsSection__head {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    align-items: end;
+    gap: 4rem;
+
+    @media only screen and (max-width: 991px) {
+      grid-template-columns: 1fr;
+      gap: 3.2rem;
+    }
+
+    .skillsSection__title {
+      margin-top: 2.4rem;
+      max-width: 14ch;
+      font-size: var(--font-72);
+      letter-spacing: -0.045em;
+
+      em {
+        color: var(--color-sage);
+      }
+    }
+
+    .skillsLegend {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+      gap: 0.8rem;
+      max-width: 52rem;
+
+      @media only screen and (max-width: 991px) {
+        justify-content: flex-start;
+      }
+
+      .skillsLegend__btn {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.8rem;
+        padding: 1rem 1.6rem;
+        border: 1px solid var(--color-line);
+        border-radius: 10rem;
+        font-family: var(--font-mono);
+        font-size: 1.1rem;
+        line-height: 1;
+        text-transform: uppercase;
+        letter-spacing: 0.08em;
+        transition:
+          border-color 0.3s ease,
+          background-color 0.3s ease;
+
+        &::before {
+          content: "";
+          width: 0.9rem;
+          height: 0.9rem;
+          border-radius: 50%;
+          background-color: var(--chip-color);
+        }
+
+        &:hover {
+          border-color: var(--color-ink);
+          background-color: var(--color-paper-dark);
+        }
+
+        &--build {
+          --chip-color: var(--color-ink);
+        }
+
+        &--motion {
+          --chip-color: var(--color-clay);
+        }
+
+        &--cms {
+          --chip-color: var(--color-sage);
+        }
+
+        &--server {
+          --chip-color: var(--color-dusk);
+        }
+
+        &--design {
+          --chip-color: var(--color-sand);
+        }
+      }
+    }
+  }
+}
+
+.skillsBox {
+  position: relative;
+  height: 64vh;
+  min-height: 46rem;
+  max-height: 72rem;
+  margin-top: 5rem;
+  overflow: hidden;
+  border: 1px solid var(--color-line);
+  border-radius: 2.4rem;
+  background-color: var(--color-paper-dark);
+  user-select: none;
+  -webkit-user-select: none;
+
+  @media only screen and (max-width: 769px) {
+    height: 60vh;
+    min-height: 44rem;
+    margin-top: 3.2rem;
+  }
+
+  .skillsBox__hint {
+    position: absolute;
+    top: 2.4rem;
+    left: 2.4rem;
+    font-family: var(--font-mono);
+    font-size: 1.1rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--color-stone);
+  }
+
+  // Positioned every frame by Matter.js (main.js) — hidden until the
+  // first drop so chips don't flash in the top-left corner.
+  .skillChip {
+    position: absolute;
+    top: 0;
+    left: 0;
+    visibility: hidden;
+    display: inline-flex;
+    align-items: center;
+    padding: 1.4rem 2.4rem;
+    border-radius: 10rem;
+    background-color: var(--color-ink);
+    color: var(--color-paper);
+    font-size: var(--font-20);
+    font-weight: 500;
+    line-height: 1;
+    letter-spacing: -0.02em;
+    white-space: nowrap;
+    will-change: transform;
+    transition: opacity 0.3s ease;
+
+    @media only screen and (max-width: 769px) {
+      padding: 0.9rem 1.5rem;
+      font-size: 1.4rem;
+    }
+
+    &.is-ready {
+      visibility: visible;
+    }
+
+    &.is-dim {
+      opacity: 0.25;
+    }
+
+    &--lg {
+      padding: 2rem 3.4rem;
+      font-size: var(--font-32);
+
+      @media only screen and (max-width: 769px) {
+        padding: 1.1rem 1.8rem;
+        font-size: 1.9rem;
+      }
+    }
+
+    &--motion {
+      background-color: var(--color-clay);
+    }
+
+    &--cms {
+      background-color: var(--color-sage);
+    }
+
+    &--server {
+      background-color: var(--color-dusk);
+    }
+
+    &--design {
+      background-color: var(--color-sand);
+      color: var(--color-ink);
+    }
+  }
+
+  // No physics (reduced motion / script failed): a plain wrapped list
+  &--static {
+    height: auto;
+    min-height: 0;
+    max-height: none;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    padding: 7rem 2.4rem 2.4rem;
+
+    .skillChip {
+      position: static;
+      visibility: visible;
+    }
+  }
+}
+
+// ============================================================
+// Work — pinned horizontal gallery (desktop) / vertical list
+// ============================================================
+
+.workSection {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  height: 100svh;
+  padding-top: calc(var(--header-height) + 2rem);
+  padding-bottom: 4rem;
+  overflow: hidden;
+  background-color: var(--color-paper);
+
+  @media only screen and (max-width: 991px) {
+    height: auto;
+    padding: 10rem 0 8rem;
+  }
+
+  .workSection__head {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 2rem;
+    width: 100%;
+
+    .workSection__title {
+      margin-top: 2.4rem;
+      font-size: var(--font-72);
+      letter-spacing: -0.045em;
+
+      em {
+        color: var(--color-dusk);
+      }
+    }
+
+    .workSection__count {
+      font-family: var(--font-mono);
+      font-size: var(--font-12);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--color-stone);
+    }
+  }
+
+  .workSection__track {
+    display: flex;
+    align-self: flex-start;
+    gap: 3.2rem;
+    flex: 1 1 auto;
+    min-height: 0;
+    width: max-content;
+    margin-top: 4rem;
+    padding: 0 var(--gutter);
+    will-change: transform;
+
+    @media only screen and (max-width: 991px) {
+      flex-direction: column;
+      align-self: stretch;
+      width: auto;
+      gap: 6rem;
+    }
+
+    .workCard {
+      flex-shrink: 0;
+      width: 44vw;
+      max-width: 76rem;
+      height: 100%;
+
+      @media only screen and (max-width: 991px) {
+        width: 100%;
+        max-width: none;
+        height: auto;
+      }
+
+      .workCard__link {
+        display: flex;
+        flex-direction: column;
+        gap: 2.2rem;
+        height: 100%;
+
+        .workCard__media {
+          position: relative;
+          flex: 1 1 auto;
+          min-height: 0;
+          overflow: hidden;
+          border-radius: 1.8rem;
+          background-color: var(--color-paper-dark);
+
+          @media only screen and (max-width: 991px) {
+            flex: none;
+            aspect-ratio: 4 / 3;
+          }
+
+          // Wider than its frame so the gallery can parallax it sideways
+          .workCard__image {
+            width: 118%;
+            max-width: none;
+            height: 100%;
+            margin-left: -9%;
+            object-fit: cover;
+
+            @media only screen and (max-width: 991px) {
+              width: 100%;
+              margin-left: 0;
+            }
+          }
+
+          .workCard__view {
+            position: absolute;
+            right: 2rem;
+            bottom: 2rem;
+            padding: 1rem 1.6rem;
+            border-radius: 10rem;
+            background-color: var(--color-paper);
+            font-family: var(--font-mono);
+            font-size: 1.1rem;
+            line-height: 1;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            opacity: 0;
+            transform: translateY(1rem);
+            transition:
+              opacity 0.4s ease,
+              transform 0.6s var(--ease-out);
+
+            @media only screen and (max-width: 991px) {
+              opacity: 1;
+              transform: none;
+            }
+          }
+        }
+
+        &:hover .workCard__view {
+          opacity: 1;
+          transform: none;
+        }
+
+        .workCard__info {
+          display: grid;
+          grid-template-columns: auto minmax(0, 1fr) auto;
+          align-items: baseline;
+          gap: 0.8rem 2rem;
+
+          .workCard__index,
+          .workCard__year {
+            font-family: var(--font-mono);
+            font-size: var(--font-12);
+            color: var(--color-stone);
+          }
+
+          .workCard__title {
+            font-size: var(--font-32);
+            letter-spacing: -0.04em;
+          }
+
+          .workCard__desc {
+            grid-column: 2 / -1;
+            max-width: 52ch;
+            font-size: var(--font-14);
+            line-height: 1.5;
+            color: var(--color-stone);
+          }
+
+          .workCard__tags {
+            grid-column: 2 / -1;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.6rem;
+
+            li {
+              padding: 0.5rem 1rem;
+              border: 1px solid var(--color-line);
+              border-radius: 10rem;
+              font-family: var(--font-mono);
+              font-size: 1.1rem;
+              line-height: 1;
+              text-transform: uppercase;
+              letter-spacing: 0.06em;
+            }
+          }
+        }
+      }
+
+      // Final "your project next" card
+      &--next {
+        width: 30vw;
+
+        @media only screen and (max-width: 991px) {
+          width: 100%;
+        }
+
+        .workCard__link .workCard__media {
+          display: flex;
+          flex-direction: column;
+          align-items: flex-start;
+          justify-content: space-between;
+          padding: 3.2rem;
+          background-color: var(--color-ink);
+          color: var(--color-paper);
+          transition: background-color 0.5s var(--ease-out);
+
+          .workCard__nextTitle {
+            font-size: var(--font-56);
+            font-weight: 500;
+            line-height: 1;
+            letter-spacing: -0.045em;
+
+            em {
+              color: var(--color-sand);
+            }
+          }
+
+          .workCard__nextCta {
+            font-family: var(--font-mono);
+            font-size: var(--font-12);
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+          }
+        }
+
+        .workCard__link:hover .workCard__media {
+          background-color: var(--color-clay);
+        }
+      }
+    }
+  }
+}
+
+// ============================================================
+// Services + Lighthouse score panel
+// ============================================================
+
+.servicesSection {
+  position: relative;
+  padding: 16rem 0 14rem;
+  background-color: var(--color-paper);
+
+  @media only screen and (max-width: 769px) {
+    padding: 8rem 0 10rem;
+  }
+
+  .servicesSection__grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr);
+    align-items: start;
+    gap: 8rem;
+
+    @media only screen and (max-width: 991px) {
+      grid-template-columns: 1fr;
+      gap: 6rem;
+    }
+
+    .servicesSection__title {
+      margin-top: 2.4rem;
+      max-width: 12ch;
+      font-size: var(--font-72);
+      letter-spacing: -0.045em;
+
+      em {
+        color: var(--color-clay);
+      }
+    }
+
+    .serviceList {
+      margin-top: 6rem;
+      border-top: 1px solid var(--color-line);
+
+      .serviceItem {
+        display: grid;
+        grid-template-columns: 6rem minmax(0, 1fr);
+        gap: 2rem;
+        padding: 3.2rem 0;
+        border-bottom: 1px solid var(--color-line);
+
+        @media only screen and (max-width: 575px) {
+          grid-template-columns: 4rem minmax(0, 1fr);
+        }
+
+        .serviceItem__index {
+          font-family: var(--font-mono);
+          font-size: var(--font-12);
+          color: var(--color-clay);
+          padding-top: 0.6rem;
+        }
+
+        .serviceItem__title {
+          font-size: var(--font-32);
+          letter-spacing: -0.04em;
+        }
+
+        .serviceItem__text {
+          margin-top: 1.2rem;
+          max-width: 50ch;
+          font-size: var(--font-16);
+          line-height: 1.55;
+          color: var(--color-stone);
+        }
+      }
+    }
+
+    .scorePanel {
+      position: sticky;
+      top: calc(var(--header-height) + 2rem);
+      padding: 4rem;
+      border-radius: 2.4rem;
+      background-color: var(--color-ink);
+      color: var(--color-paper);
+
+      @media only screen and (max-width: 991px) {
+        position: relative;
+        top: 0;
+      }
+
+      @media only screen and (max-width: 575px) {
+        padding: 3.2rem 2.4rem;
+      }
+
+      .scorePanel__label {
+        font-family: var(--font-mono);
+        font-size: var(--font-12);
+        text-transform: uppercase;
+        letter-spacing: 0.08em;
+        color: var(--color-stone-light);
+      }
+
+      .scorePanel__grid {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 4rem 2rem;
+        margin-top: 4rem;
+
+        .scoreRing {
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          gap: 1.4rem;
+          text-align: center;
+
+          .scoreRing__svg {
+            position: relative;
+            width: 13rem;
+            height: 13rem;
+
+            @media only screen and (max-width: 575px) {
+              width: 10rem;
+              height: 10rem;
+            }
+
+            svg {
+              width: 100%;
+              height: 100%;
+              transform: rotate(-90deg);
+
+              circle {
+                fill: none;
+                stroke-width: 5;
+              }
+
+              .scoreRing__track {
+                stroke: var(--color-line-light);
+              }
+
+              .scoreRing__progress {
+                stroke: var(--color-sage);
+                stroke-linecap: round;
+              }
+            }
+
+            .scoreRing__value {
+              position: absolute;
+              inset: 0;
+              display: flex;
+              align-items: center;
+              justify-content: center;
+              font-size: var(--font-32);
+              font-weight: 500;
+              letter-spacing: -0.04em;
+              font-variant-numeric: tabular-nums;
+            }
+          }
+
+          .scoreRing__name {
+            font-family: var(--font-mono);
+            font-size: 1.1rem;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            color: var(--color-stone-light);
+          }
+        }
+      }
+
+      .scorePanel__note {
+        margin-top: 4rem;
+        font-size: var(--font-14);
+        line-height: 1.5;
+        color: var(--color-stone-light);
+      }
+    }
+  }
+}
+
+// ============================================================
+// Contact (+ footer, see base/_footer.scss)
+// ============================================================
+
+.contactSection {
+  position: relative;
+  padding-top: 16rem;
+  overflow: hidden;
+  border-radius: 4rem 4rem 0 0;
+  background-color: var(--color-ink);
+  color: var(--color-paper);
+
+  @media only screen and (max-width: 769px) {
+    padding-top: 10rem;
+    border-radius: 2.4rem 2.4rem 0 0;
+  }
+
+  .contactSection__title {
+    margin-top: 3.2rem;
+    // Viewport-based on purpose: this line should always span the
+    // screen, whatever the breakpoint.
+    font-size: 9.4vw;
+    line-height: 0.92;
+    letter-spacing: -0.055em;
+
+    @media only screen and (max-width: 575px) {
+      font-size: 13vw;
+    }
+
+    em {
+      color: var(--color-sand);
+    }
+  }
+
+  .contactSection__actions {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 2rem;
+    margin-top: 7rem;
+
+    .contactSection__email {
+      display: inline-flex;
+      align-items: center;
+      gap: 2rem;
+      padding: 2.2rem 3.4rem;
+      border-radius: 10rem;
+      background-color: var(--color-paper);
+      color: var(--color-ink);
+      font-size: var(--font-32);
+      font-weight: 500;
+      letter-spacing: -0.03em;
+      transition: background-color 0.4s var(--ease-out);
+
+      @media only screen and (max-width: 575px) {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0.6rem;
+        width: 100%;
+        padding: 2rem 2.4rem;
+        border-radius: 2rem;
+      }
+
+      .contactSection__emailHint {
+        font-family: var(--font-mono);
+        font-size: 1.1rem;
+        font-weight: 400;
+        text-transform: uppercase;
+        letter-spacing: 0.08em;
+        color: var(--color-stone);
+      }
+
+      &:hover {
+        background-color: var(--color-sand);
+      }
+
+      &.is-copied .contactSection__emailHint {
+        color: var(--color-sage);
+      }
+    }
+  }
+
+  .contactSection__links {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    margin-top: 10rem;
+    border-top: 1px solid var(--color-line-light);
+
+    @media only screen and (max-width: 769px) {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      margin-top: 7rem;
+    }
+
+    .contactLink {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 2.6rem 2.4rem 2.6rem 0;
+      font-family: var(--font-mono);
+      font-size: var(--font-14);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      transition: color 0.3s ease;
+
+      span {
+        transition: transform 0.5s var(--ease-out);
+      }
+
+      &:hover {
+        color: var(--color-sand);
+
+        span {
+          transform: translate(0.3rem, -0.3rem);
+        }
+      }
+    }
+  }
+}
