@@ -21,10 +21,22 @@
     <!-- Site content + shared state: must run before everything below -->
     <script src="assets/js/data.js?v=9"></script>
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.13.0/gsap.min.js" defer></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.13.0/ScrollTrigger.min.js" defer></script>
-    <script src="https://cdn.jsdelivr.net/npm/lenis@1.3.4/dist/lenis.min.js" defer></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/matter-js/0.20.0/matter.min.js" defer></script>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.13.0/gsap.min.js"
+      defer
+    ></script>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.13.0/ScrollTrigger.min.js"
+      defer
+    ></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/lenis@1.3.4/dist/lenis.min.js"
+      defer
+    ></script>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/matter-js/0.20.0/matter.min.js"
+      defer
+    ></script>
     <script src="assets/js/main.js?v=9" defer></script>
 
     <!-- Three.js scenes are ES modules (Three no longer ships a UMD build) -->
@@ -37,7 +49,11 @@
       }
     </script>
     <script type="module" src="assets/js/three/heroScene.js?v=9" async></script>
-    <script type="module" src="assets/js/three/stackScene.js?v=9" async></script>
+    <script
+      type="module"
+      src="assets/js/three/stackScene.js?v=9"
+      async
+    ></script>
     <script type="module" src="assets/js/three/floaters.js?v=9" async></script>
   </head>
   <body>
@@ -54,17 +70,28 @@
         <li>&gt; pointing dns</li>
         <li>&gt; ready</li>
       </ul>
-      <p class="preloader__count"><span id="preloaderCount">0</span><span class="preloader__percent">%</span></p>
+      <p class="preloader__count">
+        <span id="preloaderCount">0</span
+        ><span class="preloader__percent">%</span>
+      </p>
     </div>
 
-    <div class="cursor" id="cursor" aria-hidden="true"><span class="cursor__label"></span></div>
-    <canvas class="floatersCanvas" id="floatersCanvas" aria-hidden="true"></canvas>
+    <div class="cursor" id="cursor" aria-hidden="true">
+      <span class="cursor__label"></span>
+    </div>
+    <canvas
+      class="floatersCanvas"
+      id="floatersCanvas"
+      aria-hidden="true"
+    ></canvas>
 
     <!-- Header --------------------------------------------------------- -->
     <header class="siteHeader" id="siteHeader">
       <div class="section-wrapper siteHeader__inner">
         <a href="#top" class="siteHeader__logo">
-          Saddab Khan<span class="siteHeader__logoRole">Front-end developer</span>
+          Saddab Khan<span class="siteHeader__logoRole"
+            >Front-end developer</span
+          >
         </a>
         <nav class="siteNav" aria-label="Primary">
           <a href="#about" class="siteNav__item">About</a>
@@ -96,7 +123,9 @@
         <a href="#work" class="mobileMenu__link">Work</a>
         <a href="#contact" class="mobileMenu__link">Contact</a>
       </nav>
-      <p class="mobileMenu__meta">Available for full-time roles and freelance projects.</p>
+      <p class="mobileMenu__meta">
+        Available for full-time roles and freelance projects.
+      </p>
     </div>
 
     <main>
@@ -116,18 +145,36 @@
           </p>
 
           <h1 class="heroSection__title">
-            <span class="heroSection__line"><span class="heroSection__lineInner">I build websites</span></span>
-            <span class="heroSection__line"><span class="heroSection__lineInner">from the first <em>keystroke</em></span></span>
-            <span class="heroSection__line"><span class="heroSection__lineInner">to the live server.</span></span>
+            <span class="heroSection__line"
+              ><span class="heroSection__lineInner"
+                >I build websites</span
+              ></span
+            >
+            <span class="heroSection__line"
+              ><span class="heroSection__lineInner"
+                >from the first <em>keystroke</em></span
+              ></span
+            >
+            <span class="heroSection__line"
+              ><span class="heroSection__lineInner"
+                >to the live server.</span
+              ></span
+            >
           </h1>
 
           <div class="heroSection__bottom">
             <div class="terminal" id="terminal">
               <div class="terminal__bar">
-                <span class="terminal__dots"><span></span><span></span><span></span></span>
+                <span class="terminal__dots"
+                  ><span></span><span></span><span></span
+                ></span>
                 <span>zsh — portfolio</span>
               </div>
-              <div class="terminal__output" id="terminalOutput" aria-live="polite"></div>
+              <div
+                class="terminal__output"
+                id="terminalOutput"
+                aria-live="polite"
+              ></div>
               <label class="terminal__prompt">
                 <span class="terminal__user">visitor@saddab:~$</span>
                 <input
@@ -145,7 +192,9 @@
             </div>
 
             <div class="heroSection__aside">
-              <p class="heroSection__hint">Hover, tap or type —<br />the keys are real.</p>
+              <p class="heroSection__hint">
+                Hover, tap or type —<br />the keys are real.
+              </p>
               <a href="#about" class="heroSection__scroll">Scroll to explore</a>
             </div>
           </div>
@@ -157,16 +206,19 @@
         <div class="section-wrapper">
           <p class="sectionLabel"><span>01</span>About</p>
           <p class="aboutSection__statement js-fill">
-            I'm a front-end developer who doesn't stop at the front end. I write the HTML, CSS and
-            JavaScript you see, build the WordPress or Webflow behind it, point the domain at the
-            server — and keep the whole thing <em>fast</em> long after launch.
+            I'm a front-end developer who doesn't stop at the front end. I write
+            the HTML, CSS and JavaScript you see, build the WordPress or Webflow
+            behind it, point the domain at the server — and keep the whole thing
+            <em>fast</em> long after launch.
           </p>
 
           <ul class="aboutSection__facts">
             <li class="factCard reveal">
               <span class="factCard__label">Front end</span>
               <span class="factCard__value">Hands-on, daily</span>
-              <span class="factCard__text">HTML, CSS, Sass, JavaScript, React, Three.js</span>
+              <span class="factCard__text"
+                >HTML, CSS, Sass, JavaScript, React, Three.js</span
+              >
             </li>
             <li class="factCard reveal">
               <span class="factCard__label">Back end &amp; CMS</span>
@@ -176,12 +228,16 @@
             <li class="factCard reveal">
               <span class="factCard__label">Hosting &amp; DNS</span>
               <span class="factCard__value">Handled</span>
-              <span class="factCard__text">Domains, SSL, servers, backups, maintenance</span>
+              <span class="factCard__text"
+                >Domains, SSL, servers, backups, maintenance</span
+              >
             </li>
             <li class="factCard reveal">
               <span class="factCard__label">Design</span>
               <span class="factCard__value">Working knowledge</span>
-              <span class="factCard__text">Figma — reading, inspecting and adapting designs</span>
+              <span class="factCard__text"
+                >Figma — reading, inspecting and adapting designs</span
+              >
             </li>
           </ul>
         </div>
@@ -190,16 +246,20 @@
       <div class="marquee" aria-hidden="true">
         <div class="marquee__track">
           <div class="marquee__group">
-            <span>Open to full-time roles</span><span class="marquee__star">✦</span>
-            <span>Freelance projects</span><span class="marquee__star">✦</span>
-            <span>Interactive websites</span><span class="marquee__star">✦</span>
-            <span>WordPress to WebGL</span><span class="marquee__star">✦</span>
+            <span>Open to full-time roles</span
+            ><span class="marquee__star">✦</span> <span>Freelance projects</span
+            ><span class="marquee__star">✦</span>
+            <span>Interactive websites</span
+            ><span class="marquee__star">✦</span> <span>WordPress to WebGL</span
+            ><span class="marquee__star">✦</span>
           </div>
           <div class="marquee__group">
-            <span>Open to full-time roles</span><span class="marquee__star">✦</span>
-            <span>Freelance projects</span><span class="marquee__star">✦</span>
-            <span>Interactive websites</span><span class="marquee__star">✦</span>
-            <span>WordPress to WebGL</span><span class="marquee__star">✦</span>
+            <span>Open to full-time roles</span
+            ><span class="marquee__star">✦</span> <span>Freelance projects</span
+            ><span class="marquee__star">✦</span>
+            <span>Interactive websites</span
+            ><span class="marquee__star">✦</span> <span>WordPress to WebGL</span
+            ><span class="marquee__star">✦</span>
           </div>
         </div>
       </div>
@@ -216,8 +276,12 @@
 
         <div class="section-wrapper stackSection__inner">
           <div class="stackSection__head">
-            <p class="sectionLabel sectionLabel--light"><span>02</span>Anatomy of a website</p>
-            <h2 class="stackSection__title">Six layers. <em>One developer.</em></h2>
+            <p class="sectionLabel sectionLabel--light">
+              <span>02</span>Anatomy of a website
+            </p>
+            <h2 class="stackSection__title">
+              Six layers. <em>One developer.</em>
+            </h2>
           </div>
 
           <div class="stackSection__bottom">
@@ -227,7 +291,9 @@
             <div class="stackSection__footer">
               <div class="stackSection__progress">
                 <span id="stackCount">00</span>
-                <span class="stackSection__bar"><span id="stackBar"></span></span>
+                <span class="stackSection__bar"
+                  ><span id="stackBar"></span
+                ></span>
                 <span id="stackTotal">06</span>
               </div>
               <p class="stackSection__hint">Drag to spin it</p>
@@ -242,14 +308,23 @@
           <div class="skillsSection__head">
             <div>
               <p class="sectionLabel"><span>03</span>Toolbox</p>
-              <h2 class="skillsSection__title js-split">The tools I reach for. <em>Go on, throw them.</em></h2>
+              <h2 class="skillsSection__title js-split">
+                The tools I reach for. <em>Go on, throw them.</em>
+              </h2>
             </div>
             <!-- Legend buttons rendered from PORTFOLIO.skillGroups -->
             <div class="skillsLegend" id="skillsLegend"></div>
           </div>
 
-          <div class="skillsBox" id="skillsBox" data-cursor="throw" aria-hidden="true">
-            <p class="skillsBox__hint">Drag, throw, or tap a group to shake it</p>
+          <div
+            class="skillsBox"
+            id="skillsBox"
+            data-cursor="throw"
+            aria-hidden="true"
+          >
+            <p class="skillsBox__hint">
+              Drag, throw, or tap a group to shake it
+            </p>
           </div>
           <ul class="visually-hidden" id="skillsList"></ul>
         </div>
@@ -260,7 +335,9 @@
         <div class="section-wrapper workSection__head">
           <div>
             <p class="sectionLabel"><span>04</span>Selected work</p>
-            <h2 class="workSection__title js-split">Things I've <em>built.</em></h2>
+            <h2 class="workSection__title js-split">
+              Things I've <em>built.</em>
+            </h2>
           </div>
           <p class="workSection__count" id="workCount"></p>
         </div>
@@ -273,48 +350,70 @@
         <div class="section-wrapper servicesSection__grid">
           <div>
             <p class="sectionLabel"><span>05</span>Beyond the front end</p>
-            <h2 class="servicesSection__title js-split">Launch is the <em>middle,</em> not the end.</h2>
+            <h2 class="servicesSection__title js-split">
+              Launch is the <em>middle,</em> not the end.
+            </h2>
 
             <ol class="serviceList">
               <li class="serviceItem reveal">
                 <span class="serviceItem__index">01</span>
                 <div>
                   <h3 class="serviceItem__title">Back end &amp; CMS</h3>
-                  <p class="serviceItem__text">Custom WordPress themes, blocks and plugins, or Webflow CMS — built so the content team never needs to call me.</p>
+                  <p class="serviceItem__text">
+                    Custom WordPress themes, blocks and plugins, or Webflow CMS
+                    — built so the content team never needs to call me.
+                  </p>
                 </div>
               </li>
               <li class="serviceItem reveal">
                 <span class="serviceItem__index">02</span>
                 <div>
                   <h3 class="serviceItem__title">Hosting &amp; domains</h3>
-                  <p class="serviceItem__text">Domain registration, DNS, SSL, email and server setup — the unglamorous bits that decide whether launch day goes well.</p>
+                  <p class="serviceItem__text">
+                    Domain registration, DNS, SSL, email and server setup — the
+                    unglamorous bits that decide whether launch day goes well.
+                  </p>
                 </div>
               </li>
               <li class="serviceItem reveal">
                 <span class="serviceItem__index">03</span>
                 <div>
                   <h3 class="serviceItem__title">Site optimisation</h3>
-                  <p class="serviceItem__text">Core Web Vitals, image and font strategy, caching and lazy-loading — fast on a mid-range phone, not just a MacBook.</p>
+                  <p class="serviceItem__text">
+                    Core Web Vitals, image and font strategy, caching and
+                    lazy-loading — fast on a mid-range phone, not just a
+                    MacBook.
+                  </p>
                 </div>
               </li>
               <li class="serviceItem reveal">
                 <span class="serviceItem__index">04</span>
                 <div>
                   <h3 class="serviceItem__title">Maintenance</h3>
-                  <p class="serviceItem__text">Updates, backups, uptime checks and fixes when something breaks at 2am. Websites are gardens, not statues.</p>
+                  <p class="serviceItem__text">
+                    Updates, backups, uptime checks and fixes when something
+                    breaks at 2am. Websites are gardens, not statues.
+                  </p>
                 </div>
               </li>
             </ol>
           </div>
 
           <aside class="scorePanel reveal" aria-label="Lighthouse targets">
-            <p class="scorePanel__label">What I build towards on every launch</p>
+            <p class="scorePanel__label">
+              What I build towards on every launch
+            </p>
             <div class="scorePanel__grid">
               <div class="scoreRing">
                 <div class="scoreRing__svg">
                   <svg viewBox="0 0 100 100" aria-hidden="true">
                     <circle class="scoreRing__track" cx="50" cy="50" r="44" />
-                    <circle class="scoreRing__progress" cx="50" cy="50" r="44" />
+                    <circle
+                      class="scoreRing__progress"
+                      cx="50"
+                      cy="50"
+                      r="44"
+                    />
                   </svg>
                   <span class="scoreRing__value">0</span>
                 </div>
@@ -324,7 +423,12 @@
                 <div class="scoreRing__svg">
                   <svg viewBox="0 0 100 100" aria-hidden="true">
                     <circle class="scoreRing__track" cx="50" cy="50" r="44" />
-                    <circle class="scoreRing__progress" cx="50" cy="50" r="44" />
+                    <circle
+                      class="scoreRing__progress"
+                      cx="50"
+                      cy="50"
+                      r="44"
+                    />
                   </svg>
                   <span class="scoreRing__value">0</span>
                 </div>
@@ -334,7 +438,12 @@
                 <div class="scoreRing__svg">
                   <svg viewBox="0 0 100 100" aria-hidden="true">
                     <circle class="scoreRing__track" cx="50" cy="50" r="44" />
-                    <circle class="scoreRing__progress" cx="50" cy="50" r="44" />
+                    <circle
+                      class="scoreRing__progress"
+                      cx="50"
+                      cy="50"
+                      r="44"
+                    />
                   </svg>
                   <span class="scoreRing__value">0</span>
                 </div>
@@ -344,14 +453,22 @@
                 <div class="scoreRing__svg">
                   <svg viewBox="0 0 100 100" aria-hidden="true">
                     <circle class="scoreRing__track" cx="50" cy="50" r="44" />
-                    <circle class="scoreRing__progress" cx="50" cy="50" r="44" />
+                    <circle
+                      class="scoreRing__progress"
+                      cx="50"
+                      cy="50"
+                      r="44"
+                    />
                   </svg>
                   <span class="scoreRing__value">0</span>
                 </div>
                 <span class="scoreRing__name">SEO</span>
               </div>
             </div>
-            <p class="scorePanel__note">Lighthouse targets, measured on real devices — not a promise that every plugin agrees.</p>
+            <p class="scorePanel__note">
+              Lighthouse targets, measured on real devices — not a promise that
+              every plugin agrees.
+            </p>
           </aside>
         </div>
       </section>
@@ -360,29 +477,69 @@
       <section class="contactSection" id="contact">
         <div class="section-wrapper">
           <p class="sectionLabel sectionLabel--light"><span>06</span>Contact</p>
-          <h2 class="contactSection__title js-split">Let's build something <em>worth scrolling.</em></h2>
+          <h2 class="contactSection__title js-split">
+            Let's build something <em>worth scrolling.</em>
+          </h2>
 
           <div class="contactSection__actions">
-            <button type="button" class="contactSection__email magnetic" id="copyEmail" data-cursor="copy">
-              <span class="contactSection__emailText" id="emailText">hello@yourname.dev</span>
-              <span class="contactSection__emailHint" id="emailHint">Click to copy</span>
+            <button
+              type="button"
+              class="contactSection__email magnetic"
+              id="copyEmail"
+              data-cursor="copy"
+            >
+              <span class="contactSection__emailText" id="emailText"
+                >ksaddab@gmail.com</span
+              >
+              <span class="contactSection__emailHint" id="emailHint"
+                >Click to copy</span
+              >
             </button>
-            <a href="assets/documents/resume.pdf" class="btn btn--light magnetic" target="_blank" rel="noopener">Download resume</a>
+            <a
+              href="assets/documents/resume.pdf"
+              class="btn btn--light magnetic"
+              target="_blank"
+              rel="noopener"
+              >Download resume</a
+            >
           </div>
 
           <ul class="contactSection__links">
-            <li><a href="#" class="contactLink" target="_blank" rel="noopener">LinkedIn <span aria-hidden="true">↗</span></a></li>
-            <li><a href="#" class="contactLink" target="_blank" rel="noopener">GitHub <span aria-hidden="true">↗</span></a></li>
-            <li><a href="#" class="contactLink" target="_blank" rel="noopener">Instagram <span aria-hidden="true">↗</span></a></li>
-            <li><a href="#" class="contactLink" target="_blank" rel="noopener">Awwwards <span aria-hidden="true">↗</span></a></li>
+            <li>
+              <a href="#" class="contactLink" target="_blank" rel="noopener"
+                >LinkedIn <span aria-hidden="true">↗</span></a
+              >
+            </li>
+            <li>
+              <a href="#" class="contactLink" target="_blank" rel="noopener"
+                >GitHub <span aria-hidden="true">↗</span></a
+              >
+            </li>
+            <li>
+              <a href="#" class="contactLink" target="_blank" rel="noopener"
+                >Instagram <span aria-hidden="true">↗</span></a
+              >
+            </li>
+            <li>
+              <a href="#" class="contactLink" target="_blank" rel="noopener"
+                >Awwwards <span aria-hidden="true">↗</span></a
+              >
+            </li>
           </ul>
         </div>
 
         <footer class="siteFooter">
           <div class="section-wrapper siteFooter__inner">
-            <p class="siteFooter__item">Local time <span id="localTime">--:--</span></p>
-            <p class="siteFooter__item">Designed &amp; hand-coded by Saddab Khan — © <span id="year">2026</span></p>
-            <a href="#top" class="siteFooter__item siteFooter__top">Back to top ↑</a>
+            <p class="siteFooter__item">
+              Local time <span id="localTime">--:--</span>
+            </p>
+            <p class="siteFooter__item">
+              Designed &amp; hand-coded by Saddab Khan — ©
+              <span id="year">2026</span>
+            </p>
+            <a href="#top" class="siteFooter__item siteFooter__top"
+              >Back to top ↑</a
+            >
           </div>
         </footer>
       </section>
